@@ -3,12 +3,11 @@ import com.google.gson.Gson;
 import java.io.FileNotFoundException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
-import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class pricingRulesCreator {
-    private static Scanner scanner = new Scanner(System.in);
-    private static ArrayList<Item> items = new ArrayList<>();
+    private static final Scanner scanner = new Scanner(System.in);
+    private static final ArrayList<Item> items = new ArrayList<>();
     private static boolean finish = false;
 
     public static void newPricingRule() throws FileNotFoundException {
@@ -48,8 +47,38 @@ public class pricingRulesCreator {
             price = enteredInt();
         }while(price == -1);
 
-        items.add(new Item(name, price));
+        if(isSpecialOffer()){
+            int specialOfferItemsNumber;
+            int specialOfferPrice;
+            do{
+                System.out.println("Enter require number of items to get special offer");
+                specialOfferItemsNumber = enteredInt();
+            }while(specialOfferItemsNumber == -1);
+            do{
+                System.out.println("Enter price for set of items");
+                specialOfferPrice = enteredInt();
+            }while(specialOfferPrice == -1);
+
+            items.add(new Item(name, price, specialOfferItemsNumber, specialOfferPrice));
+        }else{
+            items.add(new Item(name, price));
+        }
         System.out.println("Item add successful!");
+    }
+
+    private static boolean isSpecialOffer() {
+        while (true){
+            System.out.println("This item has special offer?(Y/N)");
+            String input = scanner.nextLine();
+
+            if(input.equalsIgnoreCase("Y")){
+                return true;
+            }else if(input.equalsIgnoreCase("N")){
+                return false;
+            }else{
+                System.out.println("Wrong input. Please try again.");
+            }
+        }
     }
 
     private static void save() throws FileNotFoundException {
