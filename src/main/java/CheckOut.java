@@ -8,6 +8,7 @@ import java.util.Scanner;
 
 public class CheckOut {
     private final Map<String,Item> itemsPrices = new HashMap<>();
+    private final Map<String,Integer> scannedItems = new HashMap<>();
 
     public void loadPricingRules(String pricingRulesPath){
         File file = new File(pricingRulesPath);
@@ -19,9 +20,21 @@ public class CheckOut {
                 itemsPrices.put(item.getName(),item);
             }
             System.out.println("Pricing Rules loaded successful");
-            System.out.println(itemsPrices);
         }catch(FileNotFoundException e){
             System.out.println(e.getMessage());
+        }
+    }
+
+    public void scan(String itemName){
+        if(itemsPrices.containsKey(itemName)){
+            if(scannedItems.containsKey(itemName)){
+                int numberOfItems = scannedItems.get(itemName);
+                scannedItems.replace(itemName,++numberOfItems);
+            }else{
+                scannedItems.put(itemName,1);
+            }
+        }else{
+            System.out.println("Not found this item in our database");
         }
     }
 
