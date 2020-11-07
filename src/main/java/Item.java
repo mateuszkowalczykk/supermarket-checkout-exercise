@@ -15,4 +15,20 @@ public class Item {
         this.specialOfferItemsNumber = specialOfferItemsNumber;
         this.specialOfferPrice = specialOfferPrice;
     }
+
+    public String getName() {
+        return name;
+    }
+
+    public int getPrice() {
+        return price;
+    }
+
+    public int getSpecialOfferItemsNumber() {
+        return specialOfferItemsNumber;
+    }
+
+    public int getSpecialOfferPrice() {
+        return specialOfferPrice;
+    }
 }
