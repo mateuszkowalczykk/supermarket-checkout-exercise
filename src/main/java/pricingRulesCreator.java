@@ -14,7 +14,7 @@ public class pricingRulesCreator {
         System.out.println("Welcome in Pricing Rules Creator!");
 
         while(!finish){
-            System.out.println("Choose option 1-3:");
+            System.out.println("\nChoose option 1-3:");
             System.out.println("1-Add new item to Pricing Rules");
             System.out.println("2-Finish creating Pricing Rules");
             System.out.println("3-Exit without save");
