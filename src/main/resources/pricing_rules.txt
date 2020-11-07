@@ -1,0 +1,4 @@
+{"name":"A","price":50,"specialOfferItemsNumber":3,"specialOfferPrice":130}
+{"name":"B","price":30,"specialOfferItemsNumber":2,"specialOfferPrice":45}
+{"name":"C","price":20,"specialOfferItemsNumber":0,"specialOfferPrice":0}
+{"name":"D","price":15,"specialOfferItemsNumber":0,"specialOfferPrice":0}
