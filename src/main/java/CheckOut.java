@@ -2,13 +2,11 @@ import com.google.gson.Gson;
 
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Scanner;
+import java.util.*;
 
 public class CheckOut {
-    private final Map<String,Item> itemsPrices = new HashMap<>();
-    private final Map<String,Integer> scannedItems = new HashMap<>();
+    private final Set<Item> itemsPrices = new HashSet<>();
+    private final Map<Item,Integer> scannedItems = new HashMap<>();
 
     public void loadPricingRules(String pricingRulesPath){
         File file = new File(pricingRulesPath);
@@ -17,7 +15,7 @@ public class CheckOut {
             Gson gson = new Gson();
             while(loadedFile.hasNextLine()){
                 Item item = gson.fromJson(loadedFile.nextLine(),Item.class);
-                itemsPrices.put(item.getName(),item);
+                itemsPrices.add(item);
             }
             System.out.println("Pricing Rules loaded successful");
         }catch(FileNotFoundException e){
@@ -26,16 +24,21 @@ public class CheckOut {
     }
 
     public void scan(String itemName){
-        if(itemsPrices.containsKey(itemName)){
-            if(scannedItems.containsKey(itemName)){
-                int numberOfItems = scannedItems.get(itemName);
-                scannedItems.replace(itemName,++numberOfItems);
+        try{
+            Item item = itemsPrices.stream()
+                    .filter(item1 -> item1.getName().equals(itemName))
+                    .findFirst()
+                    .orElseThrow();
+            if(scannedItems.containsKey(item)){
+                int numberOfItems = scannedItems.get(item);
+                scannedItems.replace(item,++numberOfItems);
             }else{
-                scannedItems.put(itemName,1);
+                scannedItems.put(item,1);
             }
-        }else{
+        }catch (NoSuchElementException e){
             System.out.println("Not found this item in our database");
         }
     }
+
 
 }
