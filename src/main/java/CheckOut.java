@@ -40,5 +40,16 @@ public class CheckOut {
         }
     }
 
-
+    public int total(){
+        int totalPrice = 0;
+        for(Item item : scannedItems.keySet()){
+            if(item.getSpecialOfferItemsNumber() == 0){
+                totalPrice += scannedItems.get(item) * item.getPrice();
+            }else{
+                totalPrice += scannedItems.get(item) / item.getSpecialOfferItemsNumber() * item.getSpecialOfferPrice();
+                totalPrice += scannedItems.get(item) % item.getSpecialOfferItemsNumber() * item.getPrice();
+            }
+        }
+        return totalPrice;
+    }
 }
